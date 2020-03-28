@@ -72,7 +72,20 @@ tasklist.buttons = awful.util.table.join(
 -- Taglist widget
 --------------------------------------------------------------------------------
 local taglist = {}
-taglist.style = { separator = separator, widget = redflat.gauge.tag.blue.new, show_tip = true }
+taglist.style = { widget = redflat.gauge.tag.ruby.new, show_tip = true }
+
+-- double line taglist
+taglist.cols_num = 6
+taglist.rows_num = 2
+
+taglist.layout = wibox.widget {
+	expand          = true,
+	forced_num_rows = taglist.rows_num,
+	forced_num_cols = taglist.cols_num,
+    layout          = wibox.layout.grid,
+}
+
+-- buttons
 taglist.buttons = awful.util.table.join(
 	awful.button({         }, 1, function(t) t:view_only() end),
 	awful.button({ env.mod }, 1, function(t) if client.focus then client.focus:move_to_tag(t) end end),
@@ -82,6 +95,18 @@ taglist.buttons = awful.util.table.join(
 	awful.button({         }, 4, function(t) awful.tag.viewnext(t.screen) end),
 	awful.button({         }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
+
+-- some tag settings which indirectky depends on row and columns number of taglist
+taglist.names = {
+	"Prime", "Full", "Code", "Edit", "Misc", "Game",
+	"Spare", "Back", "Test", "Qemu", "Data", "Free"
+}
+
+local al = awful.layout.layouts
+taglist.layouts = {
+	al[5], al[5], al[5], al[5], al[5], al[5],
+	al[5], al[5], al[5], al[5], al[5], al[5]
+}
 
 -- Textclock widget
 --------------------------------------------------------------------------------
@@ -133,32 +158,13 @@ volume.buttons = awful.util.table.join(
 -- Keyboard layout indicator
 --------------------------------------------------------------------------------
 local kbindicator = {}
-redflat.widget.keyboard:init({ "English", "Russian" })
+redflat.widget.keyboard:init({ "English", "Arabic" })
 kbindicator.widget = redflat.widget.keyboard()
 
 kbindicator.buttons = awful.util.table.join(
 	awful.button({}, 1, function () redflat.widget.keyboard:toggle_menu() end),
 	awful.button({}, 4, function () redflat.widget.keyboard:toggle()      end),
 	awful.button({}, 5, function () redflat.widget.keyboard:toggle(true)  end)
-)
-
--- Mail widget
---------------------------------------------------------------------------------
--- mail settings template
-local my_mails = require("color.blue.mail-example")
-
--- safe load private mail settings
-pcall(function() my_mails = require("private.mail-config") end)
-
--- widget setup
-local mail = {}
-redflat.widget.mail:init({ maillist = my_mails })
-mail.widget = redflat.widget.mail()
-
--- buttons
-mail.buttons = awful.util.table.join(
-	awful.button({ }, 1, function () awful.spawn.with_shell(env.mail) end),
-	awful.button({ }, 2, function () redflat.widget.mail:update(true) end)
 )
 
 -- System resource monitoring widgets
@@ -179,7 +185,7 @@ sysmon.widget.battery = redflat.widget.sysmon(
 -- network speed
 sysmon.widget.network = redflat.widget.net(
 	{
-		interface = "wlp60s0",
+		interface = "wlp82s0",
 		alert = { up = 5 * 1024^2, down = 5 * 1024^2 },
 		speed = { up = 6 * 1024^2, down = 6 * 1024^2 },
 		autoscale = false
@@ -224,13 +230,15 @@ awful.screen.connect_for_each_screen(
 		env.wallpaper(s)
 
 		-- tags
-		awful.tag({ "Main", "Full", "Edit", "Read", "Free" }, s, { al[5], al[6], al[6], al[4], al[3] })
+		awful.tag(taglist.names, s, taglist.layouts)
 
 		-- layoutbox widget
 		layoutbox[s] = redflat.widget.layoutbox({ screen = s })
 
 		-- taglist widget
-		taglist[s] = redflat.widget.taglist({ screen = s, buttons = taglist.buttons, hint = env.tagtip }, taglist.style)
+		taglist[s] = redflat.widget.taglist(
+			{ screen = s, buttons = taglist.buttons, hint = env.tagtip, layout = taglist.layout }, taglist.style
+		)
 
 		-- tasklist widget
 		tasklist[s] = redflat.widget.tasklist({ screen = s, buttons = tasklist.buttons }, tasklist.style)
@@ -259,8 +267,6 @@ awful.screen.connect_for_each_screen(
 			{ -- right widgets
 				layout = wibox.layout.fixed.horizontal,
 
-				separator,
-				env.wrapper(mail.widget, "mail", mail.buttons),
 				separator,
 				env.wrapper(kbindicator.widget, "keyboard", kbindicator.buttons),
 				separator,
@@ -309,7 +315,7 @@ hotkeys:init({ env = env, menu = mymenu.mainmenu, appkeys = appkeys, volume = vo
 -- Rules
 -----------------------------------------------------------------------------------------------------------------------
 local rules = require("color.blue.rules-config") -- load file with rules configuration
-rules:init({ hotkeys = hotkeys})
+rules:init({ hotkeys = hotkeys, taglist = taglist.names })
 
 
 -- Titlebar setup

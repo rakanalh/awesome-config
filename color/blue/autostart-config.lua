@@ -12,25 +12,23 @@ local autostart = {}
 -- Application list function
 --------------------------------------------------------------------------------
 function autostart.run()
-	-- environment
-	awful.spawn.with_shell("python ~/scripts/env/pa-setup.py")
-	awful.spawn.with_shell("python ~/scripts/env/color-profile-setup.py")
-	awful.spawn.with_shell("python ~/scripts/env/kbd-setup.py")
-
-	-- gnome environment
-	awful.spawn.with_shell("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-
 	-- firefox sync
-	awful.spawn.with_shell("python ~/scripts/firefox/ff-sync.py")
+	-- awful.spawn.with_shell("python ~/scripts/firefox/ff-sync.py")
 
 	-- utils
 	awful.spawn.with_shell("compton")
+	awful.spawn.with_shell("mpd")
+	awful.spawn.with_shell("mpDris2")
 	awful.spawn.with_shell("nm-applet")
 
 	-- apps
-	awful.spawn.with_shell("gpaste-client start")
-	awful.spawn.with_shell("transmission-gtk -m")
-	awful.spawn.with_shell("pragha --toggle_view")
+	awful.spawn.with_shell("qutebrowser")
+	awful.spawn.with_shell("firefox")
+	awful.spawn.with_shell("riot-desktop")
+	awful.spawn.with_shell("discord")
+	awful.spawn.with_shell("emacs")
+	awful.spawn.with_shell("alacritty")
+	awful.spawn.with_shell("telegram-desktop")
 end
 
 -- Read and commads from file and spawn them

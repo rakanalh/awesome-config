@@ -22,7 +22,7 @@ rules.base_properties = {
 
 rules.floating_any = {
 	class = {
-		"Clipflap", "Run.py",
+		"Clipflap", "Run.py", "Rofi"
 	},
 	role = { "AlarmWindow", "pop-up", },
 	type = { "dialog" }
@@ -33,7 +33,7 @@ rules.titlebar_exceptions = {
 }
 
 rules.maximized = {
-	class = { "Emacs24" }
+	class = { "Emacs" }
 }
 
 -- Build rule table
@@ -43,6 +43,7 @@ function rules:init(args)
 	args = args or {}
 	self.base_properties.keys = args.hotkeys.keys.client
 	self.base_properties.buttons = args.hotkeys.mouse.client
+	self.taglist = args.taglist
 	self.env = args.env or {}
 
 
@@ -74,7 +75,62 @@ function rules:init(args)
 			rule_any   = { type = { "normal" }},
 			properties = { placement = awful.placement.no_overlap + awful.placement.no_offscreen }
 		},
-
+		{
+			rule = { class = "Firefox" },
+			properties = { screen = screen_primary, tag = self.taglist[9] }
+		},
+		{
+			rule = { class = "qutebrowser" },
+			properties = { screen = screen_primary, tag = self.taglist[1] }
+		},
+		{
+			rule = { class = "Google-chrome" },
+			properties = { screen = screen_primary, tag = self.taglist[1] }
+		},
+		{
+			rule = { class = "Emacs" },
+			properties = { screen = screen_primary, tag = self.taglist[3] }
+		},
+		{
+			rule = { class = "URxvt" },
+			properties = { screen = screen_primary, tag = self.taglist[2] }
+		},
+		{
+			rule = { class = "Slack" },
+			properties = { screen = screen_secondary, tag = self.taglist[4] }
+		},
+		{
+			rule = { class = "Discord" },
+			properties = { screen = screen_secondary, tag = self.taglist[4] }
+		},
+		{
+			rule = { class = "Rocket.Chat" },
+			properties = { screen = screen_secondary, tag = self.taglist[4] }
+		},
+		{
+			rule = { class = "zoom" },
+			properties = { screen = screen_secondary, tag = self.taglist[7] }
+		},
+		{
+			rule = { class = "TelegramDesktop" },
+			properties = { screen = screen_secondary, tag = self.taglist[4] }
+		},
+		{
+			rule = { class = "Thunderbird" },
+			properties = { screen = screen_secondary, tag = self.taglist[4] }
+		},
+		{
+			rule = { class = "polar-bookshelf" },
+			properties = { screen = screen_primary, tag = self.taglist[6] }
+		},
+		{
+			rule = { class = "Zeal" },
+			properties = { screen = screen_primary, tag = self.taglist[3] }
+		},
+		{
+			rule = { class = "mpv" },
+			properties = { floating = true }
+		},
 		-- Tags placement
 		{
 			rule = { instance = "Xephyr" },

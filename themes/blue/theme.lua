@@ -20,7 +20,7 @@ theme.path = awful.util.get_configuration_dir() .. "themes/blue"
 
 -- Main config
 --------------------------------------------------------------------------------
-theme.panel_height = 36 -- panel height
+theme.panel_height = 26 -- panel height
 theme.wallpaper    = theme.path .. "/wallpaper/custom.png"
 
 -- Setup parent theme settings
@@ -106,13 +106,14 @@ theme.widget.wrapper = {
 	keyboard    = { 10, 10, 4, 4 },
 	mail        = { 10, 10, 4, 4 },
 	battery     = { 8, 10, 7, 7 },
-	tray        = { 8, 8, 7, 7 },
+	tray        = { 5, 5, 4, 4 },
 	tasklist    = { 4, 0, 0, 0 }, -- centering tasklist widget
 }
 
 -- Various widgets style tuning
 ------------------------------------------------------------
 theme.widget.tasklist.char_digit = 5
+theme.widget.tasklist.need_group  = false
 theme.widget.tasklist.task = theme.gauge.task.blue
 
 -- End

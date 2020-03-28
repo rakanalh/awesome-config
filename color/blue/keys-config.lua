@@ -36,7 +36,12 @@ end
 -- change window focus by direction
 local focus_switch_byd = function(dir)
 	return function()
-		awful.client.focus.bydirection(dir)
+		if dir == "left" then
+			awful.client.focus.byidx(-1)
+		else
+			awful.client.focus.byidx(1)
+		end
+		-- awful.client.focus.bydirection(dir)
 		if client.focus then client.focus:raise() end
 	end
 end
@@ -577,7 +582,6 @@ function hotkeys:init(args)
 	redflat.layout.map:set_keys(layout_map_layout, "layout")
 	redflat.layout.map:set_keys(layout_map_resize, "resize")
 
-
 	-- Global keys
 	--------------------------------------------------------------------------------
 	self.raw.root = {
@@ -615,7 +619,22 @@ function hotkeys:init(args)
 			{ env.mod, "Control" }, "r", awesome.restart,
 			{ description = "Reload WM", group = "Actions" }
 		},
-
+		{
+			{env.mod, "Shift"}, "j",
+			function()
+				awful.client.focus.global_bydirection("left")
+				if client.focus then client.focus:raise() end
+			end,
+			{description = "focus left", group = "client"}
+		},
+		{
+			{env.mod, "Shift"}, "l",
+			function()
+				awful.client.focus.global_bydirection("right")
+				if client.focus then client.focus:raise() end
+			end,
+			{description = "focus right", group = "client"}
+		},
 		{
 			{ env.mod }, "l", focus_switch_byd("right"),
 			{ description = "Go to right client", group = "Client focus" }
@@ -776,6 +795,14 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Control" }, "s", function() for s in screen do env.wallpaper(s) end end,
 			{} -- hidden key
+		},
+		{
+			{ env.mod }, "F10", function() awful.util.spawn_with_shell("sleep 0.5 && scrot -s") end,
+			{ description = "Screenshot selection", group = "Screenshot" }
+		},
+		{
+			{ env.mod, "Shift" }, "p", function() awful.spawn("rofi-pass --last-used") end,
+			{ description = "Prompt password", group = "Passwords" }
 		}
 	}
 
@@ -787,7 +814,7 @@ function hotkeys:init(args)
 			{ description = "Toggle fullscreen", group = "Client keys" }
 		},
 		{
-			{ env.mod }, "F4", function(c) c:kill() end,
+			{ env.mod, "Shift" }, "c", function(c) c:kill() end,
 			{ description = "Close", group = "Client keys" }
 		},
 		{
