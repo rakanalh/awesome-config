@@ -43,11 +43,11 @@ theme.fonts = {
 }
 
 theme.cairo_fonts = {
-	tag         = { font = "Play", size = 16, face = 1 }, -- tag widget font
-	appswitcher = { font = "Play", size = 20, face = 1 }, -- appswitcher widget font
+	tag         = { font = "Play", size = 10, face = 1 }, -- tag widget font
+	appswitcher = { font = "Play", size = 15, face = 1 }, -- appswitcher widget font
 	navigator   = {
-		title = { font = "Play", size = 28, face = 1, slant = 0 }, -- window navigation title font
-		main  = { font = "Play", size = 22, face = 1, slant = 0 }  -- window navigation  main font
+		title = { font = "Play", size = 20, face = 1, slant = 0 }, -- window navigation title font
+		main  = { font = "Play", size = 15, face = 1, slant = 0 }  -- window navigation  main font
 	},
 
 	desktop = {
