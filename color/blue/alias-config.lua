@@ -4,10 +4,11 @@
 
 local appnames = {}
 
+appnames["qutebrowser"         ] = "QB"
 appnames["Exaile"              ] = "EXAILE"
 appnames["Pragha"              ] = "PRAG"
 appnames["Smplayer"            ] = "SMPL"
-appnames["Firefox"             ] = "FIFOX"
+appnames["firefox"             ] = "FF"
 appnames["Gnome-terminal"      ] = "GTERM"
 appnames["Gnome-system-monitor"] = "SYSMN"
 appnames["Gthumb"              ] = "THUMB"
