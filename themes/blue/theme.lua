@@ -107,13 +107,13 @@ theme.widget.wrapper = {
 	mail        = { 10, 10, 4, 4 },
 	battery     = { 8, 10, 7, 7 },
 	tray        = { 5, 5, 4, 4 },
-	tasklist    = { 4, 0, 0, 0 }, -- centering tasklist widget
+	tasklist    = { 0, 0, -7, 0 }, -- centering tasklist widget
 }
 
 -- Various widgets style tuning
 ------------------------------------------------------------
 theme.widget.tasklist.char_digit = 5
-theme.widget.tasklist.need_group  = false
+theme.widget.tasklist.need_group  = true
 theme.widget.tasklist.task = theme.gauge.task.blue
 
 -- End
