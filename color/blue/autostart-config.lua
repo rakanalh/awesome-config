@@ -16,6 +16,8 @@ function autostart.run()
 	-- awful.spawn.with_shell("python ~/scripts/firefox/ff-sync.py")
 
 	-- utils
+	awful.spawn.with_shell("unclutter -root")
+	awful.spawn.with_shell("greenclip daemon")
 	awful.spawn.with_shell("compton")
 	awful.spawn.with_shell("mpd")
 	awful.spawn.with_shell("mpDris2")
