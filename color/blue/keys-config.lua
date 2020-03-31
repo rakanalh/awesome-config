@@ -26,7 +26,15 @@ local qlaunch = redflat.float.qlaunch
 
 -- Key support functions
 -----------------------------------------------------------------------------------------------------------------------
-
+-- Move client to screen
+local function move_to_screen(dir)
+	return function()
+		if client.focus then
+			client.focus:move_to_screen(dir == "right" and client.focus.screen.index + 1 or client.focus.screen.index - 1)
+			client.focus:raise()
+		end
+	end
+end
 -- change window focus by history
 local function focus_to_previous()
 	awful.client.focus.history.previous()
@@ -658,9 +666,12 @@ function hotkeys:init(args)
 			{ env.mod }, "i", function() redflat.float.control:show() end,
 			{ description = "[Hold] Floating window control mode", group = "Window control" }
 		},
-
 		{
-			{ env.mod }, "Return", function() awful.spawn(env.terminal) end,
+			{ env.mod }, "Return", function() awful.spawn("rofi -show run") end,
+			{ description = "Rofi", group = "Actions" }
+		},
+		{
+			{ env.mod }, "t", function() awful.spawn(env.terminal) end,
 			{ description = "Open a terminal", group = "Actions" }
 		},
 		{
@@ -675,20 +686,33 @@ function hotkeys:init(args)
 			{ description = "Reload WM", group = "Actions" }
 		},
 		{
-			{env.mod, "Shift"}, "j",
+			{env.mod, "Control"}, "h",
 			function()
-				awful.client.focus.global_bydirection("left")
+				awful.screen.focus_relative(-1)
 				if client.focus then client.focus:raise() end
 			end,
-			{description = "focus left", group = "client"}
+			{description = "Go to previous monitor", group = "Client focus"}
+		},
+		{
+			{env.mod, "Control"}, "l",
+			function()
+				awful.screen.focus_relative(1)
+				if client.focus then client.focus:raise() end
+			end,
+			{description = "Go to next monitor", group = "Client focus"}
 		},
 		{
 			{env.mod, "Shift"}, "l",
-			function()
-				awful.client.focus.global_bydirection("right")
-				if client.focus then client.focus:raise() end
+			function ()
+				awful.client.swap.byidx(1)
 			end,
-			{description = "focus right", group = "client"}
+			{description = "swap with next client by index", group = "Client swap"}
+		},
+		{
+			{env.mod, "Shift"}, "h", function ()
+				awful.client.swap.byidx(-1)
+			end,
+			{description = "swap with previous client by index", group = "Client swap"}
 		},
 		{
 			{ env.mod }, "l", focus_switch_byd("right"),
@@ -719,35 +743,18 @@ function hotkeys:init(args)
 			{ env.mod }, "w", function() mainmenu:show() end,
 			{ description = "Show main menu", group = "Widgets" }
 		},
-		{
-			{ env.mod }, "r", function() apprunner:show() end,
-			{ description = "Application launcher", group = "Widgets" }
-		},
-		{
-			{ env.mod }, "p", function() redflat.float.prompt:run() end,
-			{ description = "Show the prompt box", group = "Widgets" }
-		},
-		{
-			{ env.mod }, "x", function() redflat.float.top:show("cpu") end,
-			{ description = "Show the top process list", group = "Widgets" }
-		},
-		{
-			{ env.mod, "Control" }, "m", function() redflat.widget.mail:update(true) end,
-			{ description = "Check new mail", group = "Widgets" }
-		},
-		{
-			{ env.mod, "Control" }, "i", function() redflat.widget.minitray:toggle() end,
-			{ description = "Show minitray", group = "Widgets" }
-		},
-		{
-			{ env.mod, "Control" }, "u", function() redflat.widget.updates:update(true) end,
-			{ description = "Check available updates", group = "Widgets" }
-		},
+		-- {
+		-- 	{ env.mod }, "r", function() apprunner:show() end,
+		-- 	{ description = "Application launcher", group = "Widgets" }
+		-- },
+		-- {
+		-- 	{ env.mod }, "p", function() redflat.float.prompt:run() end,
+		-- 	{ description = "Show the prompt box", group = "Widgets" }
+		-- },
 		{
 			{ env.mod }, "g", function() qlaunch:show() end,
 			{ description = "Application quick launcher", group = "Widgets" }
 		},
-
 		{
 			{ env.mod }, "y", function() laybox:toggle_menu(mouse.screen.selected_tag) end,
 			{ description = "Show layout menu", group = "Layouts" }
@@ -760,7 +767,6 @@ function hotkeys:init(args)
 			{ env.mod }, "Down", function() awful.layout.inc(-1) end,
 			{ description = "Select previous layout", group = "Layouts" }
 		},
-
 		{
 			{}, "XF86MonBrightnessUp", function() brightness({ step = 2 }) end,
 			{ description = "Increase brightness", group = "Brightness control" }
@@ -801,7 +807,7 @@ function hotkeys:init(args)
 		},
 
 		{
-			{ env.mod }, "Escape", awful.tag.history.restore,
+			{ env.mod }, "Tab", awful.tag.history.restore,
 			{ description = "Go previos tag", group = "Tag navigation" }
 		},
 		{
@@ -812,24 +818,6 @@ function hotkeys:init(args)
 			{ env.mod }, "Left", awful.tag.viewprev,
 			{ description = "View previous tag", group = "Tag navigation" }
 		},
-
-		{
-			{ env.mod }, "t", function() redtitle.toggle(client.focus) end,
-			{ description = "Show/hide titlebar for focused client", group = "Titlebar" }
-		},
-		--{
-		--	{ env.mod, "Control" }, "t", function() redtitle.switch(client.focus) end,
-		--	{ description = "Switch titlebar view for focused client", group = "Titlebar" }
-		--},
-		{
-			{ env.mod, "Shift" }, "t", function() redtitle.toggle_all() end,
-			{ description = "Show/hide titlebar for all clients", group = "Titlebar" }
-		},
-		{
-			{ env.mod, "Control", "Shift" }, "t", function() redtitle.global_switch() end,
-			{ description = "Switch titlebar view for all clients", group = "Titlebar" }
-		},
-
 		{
 			{ env.mod }, "e", function() redflat.float.player:show(rb_corner()) end,
 			{ description = "Show/hide widget", group = "Audio player" }
@@ -853,11 +841,15 @@ function hotkeys:init(args)
 		},
 		{
 			{ env.mod }, "F10", function() awful.util.spawn_with_shell("sleep 0.5 && scrot -s") end,
-			{ description = "Screenshot selection", group = "Screenshot" }
+			{ description = "Screenshot selection", group = "Actions" }
 		},
 		{
 			{ env.mod, "Shift" }, "p", function() awful.spawn("rofi-pass --last-used") end,
-			{ description = "Prompt password", group = "Passwords" }
+			{ description = "Prompt password", group = "Actions" }
+		},
+		{
+			{ env.mod, "Shift" }, "x", function() awful.spawn("i3lock-fancy") end,
+			{ description = "Lock screen", group = "Actions" }
 		}
 	}
 
