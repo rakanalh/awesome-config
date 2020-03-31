@@ -109,9 +109,26 @@ end
 
 -- brightness functions
 local brightness = function(args)
-	redflat.float.brightness:change_with_xbacklight(args) -- use xbacklight
+	local command = string.format("light %s %d", args.down and "-U" or "-A", args.step)
+	awful.spawn.easy_async(command, info_with_xbacklight)
 end
 
+function info_with_xbacklight()
+	local brightness = redflat.float.brightness
+
+	if not brightness.style then
+		brightness.style = {}
+	end
+	awful.spawn.easy_async(
+		"light",
+		function(output)
+			rednotify:show(redutil.table.merge(
+				{ value = output / 100, text = string.format('%.0f', output) .. "%" },
+				redflat.float.brightness.brightness.style.notify
+			))
+		end
+	)
+end
 -- right bottom corner position
 local rb_corner = function()
 	return { x = screen[mouse.screen].workarea.x + screen[mouse.screen].workarea.width,
