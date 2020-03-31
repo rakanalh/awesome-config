@@ -686,33 +686,41 @@ function hotkeys:init(args)
 			{ description = "Reload WM", group = "Actions" }
 		},
 		{
-			{env.mod, "Control"}, "h",
+			{ env.mod, "Control"}, "h",
 			function()
 				awful.screen.focus_relative(-1)
 				if client.focus then client.focus:raise() end
 			end,
-			{description = "Go to previous monitor", group = "Client focus"}
+			{ description = "Go to previous monitor", group = "Client focus"}
 		},
 		{
-			{env.mod, "Control"}, "l",
+			{ env.mod, "Control"}, "l",
 			function()
 				awful.screen.focus_relative(1)
 				if client.focus then client.focus:raise() end
 			end,
-			{description = "Go to next monitor", group = "Client focus"}
+			{ description = "Go to next monitor", group = "Client focus"}
 		},
 		{
-			{env.mod, "Shift"}, "l",
+			{ env.mod, "Shift" }, "l",
 			function ()
 				awful.client.swap.byidx(1)
 			end,
-			{description = "swap with next client by index", group = "Client swap"}
+			{ description = "swap with next client by index", group = "Client swap"}
 		},
 		{
-			{env.mod, "Shift"}, "h", function ()
+			{ env.mod, "Shift" }, "h", function ()
 				awful.client.swap.byidx(-1)
 			end,
-			{description = "swap with previous client by index", group = "Client swap"}
+			{ description = "swap with previous client by index", group = "Client swap"}
+		},
+		{
+			{ env.mod, "Control", "Shift" }, "h", move_to_screen("left"),
+			{ description = "Move client to the next screen", group = "Client swap"}
+		},
+		{
+			{ env.mod, "Control", "Shift" }, "l", move_to_screen("right"),
+			{ description = "Move client to the next screen", group = "Client swap"}
 		},
 		{
 			{ env.mod }, "l", focus_switch_byd("right"),
