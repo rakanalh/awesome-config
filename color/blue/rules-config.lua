@@ -96,11 +96,19 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[2] }
 		},
 		{
+			rule = { class = "Alacritty" },
+			properties = { screen = screen_primary, tag = self.taglist[2] }
+		},
+		{
 			rule = { class = "Slack" },
 			properties = { screen = screen_secondary, tag = self.taglist[4] }
 		},
 		{
-			rule = { class = "Discord" },
+			rule = { class = "discord" },
+			properties = { screen = screen_secondary, tag = self.taglist[4] }
+		},
+		{
+			rule = { class = "riot" },
 			properties = { screen = screen_secondary, tag = self.taglist[4] }
 		},
 		{
@@ -129,6 +137,10 @@ function rules:init(args)
 		},
 		{
 			rule = { class = "mpv" },
+			properties = { floating = true }
+		},
+		{
+			rule = { class = "gnome-calculator" },
 			properties = { floating = true }
 		},
 		-- Tags placement
