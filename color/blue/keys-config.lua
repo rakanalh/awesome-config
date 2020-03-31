@@ -288,6 +288,7 @@ function hotkeys:init(args)
 		{ {}, "n", {}, {} }, -- client managment group
 		{ {}, "g", {}, {} }, -- run or rise group
 		{ {}, "f", {}, {} }, -- launch application group
+		{ {}, "m", {}, {} },
 	}
 
 	-- quick launch key sequence actions
@@ -349,6 +350,40 @@ function hotkeys:init(args)
 		},
 	}
 
+	keyseq[3][7][3] = {
+		{
+			{}, "m", function() redflat.widget.minitray:toggle() end,
+			{ description = "Show minitray", group = "Menus" }
+		},
+		{
+			{}, "t", function() redtitle.toggle(client.focus) end,
+			{ description = "Show/hide titlebar for focused client", group = "Menus" }
+		},
+		{
+			{ "Control" }, "t", function() redtitle.switch(client.focus) end,
+			{ description = "Switch titlebar view for focused client", group = "Menus" }
+		},
+		{
+			{ "Shift" }, "t", function() redtitle.toggle_all() end,
+			{ description = "Show/hide titlebar for all clients", group = "Menus" }
+		},
+		{
+			{ "Control", "Shift" }, "t", function() redtitle.global_switch() end,
+			{ description = "Switch titlebar view for all clients", group = "Menus" }
+		},
+		{
+			{}, "y", function() laybox:toggle_menu(mouse.screen.selected_tag) end,
+			{ description = "Show layout menu", group = "Menus" }
+		},
+		{
+			{}, "x", function() redflat.float.top:show("cpu") end,
+			{ description = "Show the top process list", group = "Menus" }
+		},
+		{
+			{}, "u", function() redflat.widget.updates:update(true) end,
+			{ description = "Check available updates", group = "Menus" }
+		},
+	}
 
 	-- Layouts
 	--------------------------------------------------------------------------------
