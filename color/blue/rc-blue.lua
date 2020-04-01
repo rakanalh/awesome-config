@@ -26,7 +26,7 @@ redflat.startup:activate()
 
 -- Error handling
 -----------------------------------------------------------------------------------------------------------------------
-require("colorless.ercheck-config") -- load file with error handling
+require("color.blue.ercheck-config") -- load file with error handling
 
 
 -- Setup theme and environment vars
@@ -320,13 +320,13 @@ rules:init({ hotkeys = hotkeys, taglist = taglist.names })
 
 -- Titlebar setup
 -----------------------------------------------------------------------------------------------------------------------
-local titlebar = require("colorless.titlebar-config") -- load file with titlebar configuration
+local titlebar = require("color.blue.titlebar-config") -- load file with titlebar configuration
 titlebar:init()
 
 
 -- Base signal set for awesome wm
 -----------------------------------------------------------------------------------------------------------------------
-local signals = require("colorless.signals-config") -- load file with signals configuration
+local signals = require("color.blue.signals-config") -- load file with signals configuration
 signals:init({ env = env })
 
 
