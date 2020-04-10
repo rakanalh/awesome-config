@@ -75,7 +75,7 @@ local taglist = {}
 taglist.style = { widget = redflat.gauge.tag.ruby.new, show_tip = true }
 
 -- double line taglist
-taglist.cols_num = 6
+taglist.cols_num = 5
 taglist.rows_num = 2
 
 taglist.layout = wibox.widget {
@@ -98,14 +98,14 @@ taglist.buttons = awful.util.table.join(
 
 -- some tag settings which indirectky depends on row and columns number of taglist
 taglist.names = {
-	"Prime", "Full", "Code", "Edit", "Misc", "Game",
-	"Spare", "Back", "Test", "Qemu", "Data", "Free"
+	"Prime", "Full", "Code", "Edit", "Misc",
+	"Spare", "Back", "Test", "Qemu", "Data",
 }
 
 local al = awful.layout.layouts
 taglist.layouts = {
-	al[5], al[5], al[5], al[5], al[5], al[5],
-	al[5], al[5], al[5], al[5], al[5], al[5]
+	al[5], al[5], al[5], al[5], al[5],
+	al[5], al[5], al[5], al[5], al[5],
 }
 
 -- Textclock widget
