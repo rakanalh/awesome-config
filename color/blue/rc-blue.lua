@@ -8,6 +8,8 @@
 -- Standard awesome library
 ------------------------------------------------------------
 local awful = require("awful")
+local naughty = require("naughty")
+local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 
@@ -154,6 +156,15 @@ volume.buttons = awful.util.table.join(
 	awful.button({}, 8, function() redflat.float.player:action("Previous")      end),
 	awful.button({}, 9, function() redflat.float.player:action("Next")          end)
 )
+
+function pulse_update()
+	local st = gears.timer({ timeout = 5, single_shot = true })
+	st:connect_signal("timeout", function()
+		volume.widget:update_volume({ sink_update = true })
+		naughty.notify({ title = "Bluetooth update!", text = "Bluetooth devices update" })
+	end)
+	st:start()
+end
 
 -- Keyboard layout indicator
 --------------------------------------------------------------------------------
