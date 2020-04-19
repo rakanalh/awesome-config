@@ -306,6 +306,7 @@ function hotkeys:init(args)
 		{ {}, "g", {}, {} }, -- run or rise group
 		{ {}, "f", {}, {} }, -- launch application group
 		{ {}, "m", {}, {} },
+		{ {}, "u", {}, {} },
 	}
 
 	-- quick launch key sequence actions
