@@ -143,6 +143,15 @@ local rb_corner = function()
 	         y = screen[mouse.screen].workarea.y + screen[mouse.screen].workarea.height }
 end
 
+local autorandr_profile = function(profile)
+	local command = string.format("autorandr -l %s", profile)
+	awful.spawn(command)
+end
+
+local xrandr_auto = function()
+	local command = string.format("xrandr --auto")
+	awful.spawn(command)
+end
 -- Build hotkeys depended on config parameters
 -----------------------------------------------------------------------------------------------------------------------
 function hotkeys:init(args)
@@ -393,6 +402,20 @@ function hotkeys:init(args)
 		},
 	}
 
+	keyseq[3][8][3] = {
+		{
+			{}, "l", function() xrandr_auto() end,
+			{ description = "Switch to laptop profile", group = "autorandr" }
+		},
+		{
+			{}, "h", function() autorandr_profile("home") end,
+			{ description = "Switch to home profile", group = "autorandr" }
+		},
+		{
+			{}, "w", function() autorandr_profile("work") end,
+			{ description = "Switch to work profile", group = "autorandr" }
+		},
+	}
 	-- Layouts
 	--------------------------------------------------------------------------------
 
@@ -688,7 +711,7 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Control"}, "h",
 			function()
-				awful.screen.focus_relative(-1)
+				awful.screen.focus_bydirection("left")
 				if client.focus then client.focus:raise() end
 			end,
 			{ description = "Go to previous monitor", group = "Client focus"}
@@ -696,7 +719,7 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Control"}, "l",
 			function()
-				awful.screen.focus_relative(1)
+				awful.screen.focus_bydirection("right")
 				if client.focus then client.focus:raise() end
 			end,
 			{ description = "Go to next monitor", group = "Client focus"}
@@ -848,7 +871,7 @@ function hotkeys:init(args)
 			{} -- hidden key
 		},
 		{
-			{ env.mod }, "F10", function() awful.util.spawn_with_shell("sleep 0.5 && scrot -s") end,
+			{ env.mod }, "F10", function() awful.util.spawn_with_shell("deepin-screenshot") end,
 			{ description = "Screenshot selection", group = "Actions" }
 		},
 		{
