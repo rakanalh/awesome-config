@@ -111,9 +111,9 @@ function theme:update()
 
 	-- Desktop file parser
 	--------------------------------------------------------------------------------
-	self.service.dfparser.icons.theme         = self.homedir .. "/.icons/ACYLS"
+	self.service.dfparser.icons.theme         = "/usr/share/icons/Papirus"
 	self.service.dfparser.icons.custom_only   = true
-	self.service.dfparser.icons.scalable_only = true
+	self.service.dfparser.icons.scalable_only = false
 
 	-- Menu config
 	--------------------------------------------------------------------------------

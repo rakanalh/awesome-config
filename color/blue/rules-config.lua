@@ -76,8 +76,8 @@ function rules:init(args)
 			properties = { placement = awful.placement.no_overlap + awful.placement.no_offscreen }
 		},
 		{
-			rule = { class = "Firefox" },
-			properties = { screen = screen_primary, tag = self.taglist[9] }
+			rule = { class = "firefox" },
+			properties = { screen = screen_primary, tag = self.taglist[1] }
 		},
 		{
 			rule = { class = "qutebrowser" },
@@ -108,7 +108,7 @@ function rules:init(args)
 			properties = { screen = screen_secondary, tag = self.taglist[4] }
 		},
 		{
-			rule = { class = "riot" },
+			rule = { class = "Element" },
 			properties = { screen = screen_secondary, tag = self.taglist[4] }
 		},
 		{
@@ -141,6 +141,14 @@ function rules:init(args)
 		},
 		{
 			rule = { class = "gnome-calculator" },
+			properties = { floating = true }
+		},
+		{
+			rule = { class = "deepin-calculator" },
+			properties = { floating = true }
+		},
+		{
+			rule = { class = "dde-calendar" },
 			properties = { floating = true }
 		},
 		-- Tags placement

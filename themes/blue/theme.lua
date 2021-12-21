@@ -44,8 +44,8 @@ theme.desktop.places = {
 	ssdspeed = { 2, 1 },
 	hddspeed = { 3, 1 },
 	cpumem   = { 1, 2 },
-	transm   = { 1, 3 },
-	disks    = { 1, 4 },
+	-- transm   = { 1, 3 },
+	disks    = { 1, 3 },
 	thermal  = { 1, 5 }
 }
 
@@ -108,14 +108,17 @@ theme.widget.wrapper = {
 	battery     = { 8, 10, 7, 7 },
 	tray        = { 5, 5, 4, 4 },
 	tasklist    = { 0, 0, -7, 0 }, -- centering tasklist widget
+    updates     = { 6, 6, 6, 6 },
 }
+-- System updates indicator
+theme.widget.updates.icon = theme.path .. "/widget/updates.svg"
 
 -- Various widgets style tuning
 ------------------------------------------------------------
 theme.widget.tasklist.char_digit = 5
 theme.widget.tasklist.need_group  = true
 theme.widget.tasklist.task = theme.gauge.task.blue
-
+theme.widget.updates.keytip    = { geometry = { width = 400 } }
 -- End
 -----------------------------------------------------------------------------------------------------------------------
 return theme

@@ -34,7 +34,7 @@ function desktop:init(args)
 	local netspeed = { geometry = wgeometry(grid, places.netspeed, workarea) }
 
 	netspeed.args = {
-		interface    = "wlp60s0",
+		interface    = "wlp82s0",
 		maxspeed     = { up = 6*1024^2, down = 6*1024^2 },
 		crit         = { up = 6*1024^2, down = 6*1024^2 },
 		timeout      = 2,
@@ -58,16 +58,16 @@ function desktop:init(args)
 
 	-- HDD speed
 	--------------------------------------------------------------------------------
-	local hddspeed = { geometry = wgeometry(grid, places.hddspeed, workarea) }
+	-- local hddspeed = { geometry = wgeometry(grid, places.hddspeed, workarea) }
 
-	hddspeed.args = {
-		interface = "sda",
-		meter_function = system.disk_speed,
-		timeout = 2,
-		label = "HARD DRIVE"
-	}
+	-- hddspeed.args = {
+	-- 	interface = "sda",
+	-- 	meter_function = system.disk_speed,
+	-- 	timeout = 2,
+	-- 	label = "HARD DRIVE"
+	-- }
 
-	hddspeed.style = beautiful.individual.desktop.speedmeter.drive
+	-- hddspeed.style = beautiful.individual.desktop.speedmeter.drive
 
 	-- CPU and memory usage
 	--------------------------------------------------------------------------------
@@ -85,16 +85,16 @@ function desktop:init(args)
 
 	-- Transmission info
 	--------------------------------------------------------------------------------
-	local transm = { geometry = wgeometry(grid, places.transm, workarea) }
+	-- local transm = { geometry = wgeometry(grid, places.transm, workarea) }
 
-	transm.args = {
-		topbars    = { num = 8, maxm = 100 },
-		lines      = { { maxm = 6*1024 }, { maxm = 6*1024 } },
-		meter      = { async = system.transmission.info, args = { speed_only = true } },
-		timeout    = 5,
-	}
+	-- transm.args = {
+	-- 	topbars    = { num = 8, maxm = 100 },
+	-- 	lines      = { { maxm = 6*1024 }, { maxm = 6*1024 } },
+	-- 	meter      = { async = system.transmission.info, args = { speed_only = true } },
+	-- 	timeout    = 5,
+	-- }
 
-	transm.style = beautiful.individual.desktop.multimeter.transmission
+	-- transm.style = beautiful.individual.desktop.multimeter.transmission
 
 	-- Disks
 	--------------------------------------------------------------------------------
@@ -104,8 +104,7 @@ function desktop:init(args)
 		sensors  = {
 			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "root", args = "/"            },
 			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "home", args = "/home"        },
-			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "misc", args = "/mnt/storage" },
-			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "data", args = "/mnt/media"   },
+			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "TOSHIBA", args = "/media/TOSHIBA EXT" },
 		},
 		timeout = 300
 	}
@@ -146,15 +145,15 @@ function desktop:init(args)
 	--------------------------------------------------------------------------------
 	netspeed.body = redflat.desktop.speedmeter.normal(netspeed.args, netspeed.style)
 	ssdspeed.body = redflat.desktop.speedmeter.normal(ssdspeed.args, ssdspeed.style)
-	hddspeed.body = redflat.desktop.speedmeter.normal(hddspeed.args, hddspeed.style)
+	-- hddspeed.body = redflat.desktop.speedmeter.normal(hddspeed.args, hddspeed.style)
 	cpumem.body   = redflat.desktop.multimeter(cpumem.args, cpumem.style)
-	transm.body   = redflat.desktop.multimeter(transm.args, transm.style)
+	-- transm.body   = redflat.desktop.multimeter(transm.args, transm.style)
 	disks.body    = redflat.desktop.multiline(disks.args, disks.style)
 	thermal.body  = redflat.desktop.singleline(thermal.args, thermal.style)
 
 	-- Desktop setup
 	--------------------------------------------------------------------------------
-	local desktop_objects = { netspeed, hddspeed, ssdspeed, transm, cpumem, disks, thermal }
+	local desktop_objects = { netspeed, ssdspeed, cpumem, disks, thermal }
 
 	if not autohide then
 		redflat.util.desktop.build.static(desktop_objects)

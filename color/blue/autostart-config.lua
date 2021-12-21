@@ -25,12 +25,11 @@ function autostart.run()
 	awful.spawn.with_shell("nm-applet")
 
 	-- apps
-	awful.spawn.with_shell("qutebrowser")
 	awful.spawn.with_shell("firefox")
-	awful.spawn.with_shell("riot-desktop")
-	awful.spawn.with_shell("discord")
 	awful.spawn.with_shell("emacs")
 	awful.spawn.with_shell("alacritty")
+	awful.spawn.with_shell("element-desktop")
+	awful.spawn.with_shell("slack")
 	awful.spawn.with_shell("telegram-desktop")
 end
 

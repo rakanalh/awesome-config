@@ -100,8 +100,8 @@ taglist.buttons = awful.util.table.join(
 
 -- some tag settings which indirectky depends on row and columns number of taglist
 taglist.names = {
-	"Prime", "Full", "Code", "Edit", "Misc",
-	"Spare", "Back", "Test", "Qemu", "Data",
+	"Prime", "Terminal", "Code", "Chat", "Misc",
+	"Spare", "Read", "Other", "Fire", "Data",
 }
 
 local al = awful.layout.layouts
@@ -190,7 +190,7 @@ sysmon.icon.cpuram = redflat.util.table.check(beautiful, "wicon.monitor")
 -- battery
 sysmon.widget.battery = redflat.widget.sysmon(
 	{ func = redflat.system.pformatted.bat(25), arg = "BAT0" },
-	{ timeout = 60, widget = redflat.gauge.icon.single, monitor = { is_vertical = true, icon = sysmon.icon.battery } }
+	{ timeout = 5, widget = redflat.gauge.icon.single, monitor = { is_vertical = true, icon = sysmon.icon.battery } }
 )
 
 -- network speed
@@ -227,6 +227,18 @@ sysmon.buttons.cpuram = awful.util.table.join(
 	awful.button({ }, 1, function() redflat.float.top:show("cpu") end)
 )
 
+-- Software update indcator
+--------------------------------------------------------------------------------
+redflat.widget.updates:init({ command = env.updates })
+
+local updates = {}
+updates.widget = redflat.widget.updates()
+
+updates.buttons = awful.util.table.join(
+	awful.button({ }, 1, function () redflat.widget.updates:toggle() end),
+	awful.button({ }, 2, function () redflat.widget.updates:update(true) end),
+	awful.button({ }, 3, function () redflat.widget.updates:toggle() end)
+)
 
 -- Screen setup
 -----------------------------------------------------------------------------------------------------------------------
@@ -277,7 +289,8 @@ awful.screen.connect_for_each_screen(
 			},
 			{ -- right widgets
 				layout = wibox.layout.fixed.horizontal,
-
+				separator,
+				env.wrapper(updates.widget, "updates", updates.buttons),
 				separator,
 				env.wrapper(kbindicator.widget, "keyboard", kbindicator.buttons),
 				separator,

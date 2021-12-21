@@ -1087,7 +1087,7 @@ function theme:init()
 		elements_margin = { 20, 0, 10, 10 },             -- margins around main elements (text and bar)
 		font            = self.fonts.notify,             -- widget font
 		icon            = self.icon.warning,             -- default widget icon
-		border_width    = 0,                             -- widget border width
+		border_width    = 1,                             -- widget border width
 		timeout         = 5,                             -- hide timeout
 		shape           = nil,                           -- wibox shape
 		color           = self.color,                    -- colors (main used)

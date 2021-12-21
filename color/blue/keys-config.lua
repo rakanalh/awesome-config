@@ -5,7 +5,9 @@
 -- Grab environment
 local table = table
 local awful = require("awful")
+local naughty = require("naughty")
 local redflat = require("redflat")
+local rednotify = require("redflat.float.notify")
 
 -- Initialize tables and vars for module
 -----------------------------------------------------------------------------------------------------------------------
@@ -23,7 +25,7 @@ local grid = redflat.layout.grid
 local map = redflat.layout.map
 local redtitle = redflat.titlebar
 local qlaunch = redflat.float.qlaunch
-
+local pulse_sink_update = false
 -- Key support functions
 -----------------------------------------------------------------------------------------------------------------------
 -- Move client to screen
@@ -143,8 +145,8 @@ local rb_corner = function()
 	         y = screen[mouse.screen].workarea.y + screen[mouse.screen].workarea.height }
 end
 
-local autorandr_profile = function(profile)
-	local command = string.format("autorandr -l %s", profile)
+local umonitor_profile = function(profile)
+	local command = string.format("umonitor -l %s", profile)
 	awful.spawn(command)
 end
 
@@ -152,6 +154,12 @@ local xrandr_auto = function()
 	local command = string.format("xrandr --auto")
 	awful.spawn(command)
 end
+
+-- function pulse_update()
+-- 	pulse_sink_update = true
+-- 	naughty.notify({ title = "Bluetooth update!", text = "Bluetooth devices update" })
+-- end
+
 -- Build hotkeys depended on config parameters
 -----------------------------------------------------------------------------------------------------------------------
 function hotkeys:init(args)
@@ -170,12 +178,38 @@ function hotkeys:init(args)
 	))
 
 	-- volume functions
-	local volume_raise = function() volume:change_volume({ show_notify = true })              end
-	local volume_lower = function() volume:change_volume({ show_notify = true, down = true }) end
-	local volume_mute  = function() volume:mute() end
+	local volume_raise = function()
+		volume:change_volume({ show_notify = true, sink_update = pulse_sink_update })
+		pulse_sink_update = false
+	end
+	local volume_lower = function()
+		volume:change_volume({ show_notify = true, down = true, sink_update = pulse_sink_update })
+		pulse_sink_update = false
+	end
+	local volume_mute  = function()
+		volume:mute({ volume_update = volume_update })
+		pulse_sink_update = false
+	end
+	-- local volume_raise = function()
+	-- 	awful.spawn("pulseaudio-ctl up")
+	-- 	-- update volume indicators
+	-- 	volume:update_volume()
+	-- end
+	-- local volume_lower = function()
+	-- 	awful.spawn("pulseaudio-ctl down")
+	-- 	-- update volume indicators
+	-- 	volume:update_volume()
+	-- end
+	-- local volume_mute = function()
+	-- 	awful.spawn("pulseaudio-ctl mute")
+	-- 	-- update volume indicators
+	-- 	volume:update_volume()
+	-- end
 
 	-- Init widgets
-	redflat.float.qlaunch:init()
+	local d = require("gears.debug")
+	d.print_error("rakan init")
+	redflat.float.qlaunch:init({}, { custom_only = true, scalable_only = false })
 
 	-- Application hotkeys helper
 	--------------------------------------------------------------------------------
@@ -405,16 +439,16 @@ function hotkeys:init(args)
 
 	keyseq[3][8][3] = {
 		{
-			{}, "l", function() xrandr_auto() end,
-			{ description = "Switch to laptop profile", group = "autorandr" }
+			{}, "l", function() umonitor_profile("laptop") end,
+			{ description = "Switch to laptop profile", group = "umonitor" }
 		},
 		{
-			{}, "h", function() autorandr_profile("home") end,
-			{ description = "Switch to home profile", group = "autorandr" }
+			{}, "h", function() umonitor_profile("home") end,
+			{ description = "Switch to home profile", group = "umonitor" }
 		},
 		{
-			{}, "w", function() autorandr_profile("work") end,
-			{ description = "Switch to work profile", group = "autorandr" }
+			{}, "w", function() umonitor_profile("work") end,
+			{ description = "Switch to work profile", group = "umonitor" }
 		},
 	}
 	-- Layouts
@@ -695,6 +729,10 @@ function hotkeys:init(args)
 			{ description = "Rofi", group = "Actions" }
 		},
 		{
+			{ env.mod, "Control" }, "Return", function() awful.spawn("rofi -show drun") end,
+			{ description = "Rofi", group = "Actions" }
+		},
+		{
 			{ env.mod }, "t", function() awful.spawn(env.terminal) end,
 			{ description = "Open a terminal", group = "Actions" }
 		},
@@ -872,7 +910,7 @@ function hotkeys:init(args)
 			{} -- hidden key
 		},
 		{
-			{ env.mod }, "F10", function() awful.util.spawn_with_shell("deepin-screenshot") end,
+			{ env.mod }, "F10", function() awful.util.spawn_with_shell("deepin-screen-recorder") end,
 			{ description = "Screenshot selection", group = "Actions" }
 		},
 		{
