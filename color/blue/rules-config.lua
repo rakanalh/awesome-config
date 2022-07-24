@@ -33,7 +33,7 @@ rules.titlebar_exceptions = {
 }
 
 rules.maximized = {
-	class = { "Emacs" }
+	class = { "Emacs", "Alacritty", "Element" }
 }
 
 -- Build rule table
@@ -150,6 +150,10 @@ function rules:init(args)
 		{
 			rule = { class = "dde-calendar" },
 			properties = { floating = true }
+		},
+		{
+			rule = { class = "Pcmanfm" },
+			properties = { screen = screen_primary, tag = self.taglist[6] }
 		},
 		-- Tags placement
 		{
