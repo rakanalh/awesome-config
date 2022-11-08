@@ -34,7 +34,7 @@ function desktop:init(args)
 	local netspeed = { geometry = wgeometry(grid, places.netspeed, workarea) }
 
 	netspeed.args = {
-		interface    = "wlp82s0",
+		interface    = "wlo1",
 		maxspeed     = { up = 6*1024^2, down = 6*1024^2 },
 		crit         = { up = 6*1024^2, down = 6*1024^2 },
 		timeout      = 2,
@@ -48,7 +48,7 @@ function desktop:init(args)
 	local ssdspeed = { geometry = wgeometry(grid, places.ssdspeed, workarea) }
 
 	ssdspeed.args = {
-		interface = "nvme0n1",
+		interface = "nvme1n1",
 		meter_function = system.disk_speed,
 		timeout   = 2,
 		label     = "SOLID DRIVE"
@@ -104,7 +104,6 @@ function desktop:init(args)
 		sensors  = {
 			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "root", args = "/"            },
 			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "home", args = "/home"        },
-			{ meter_function = system.fs_info, maxm = 100, crit = 80, name = "TOSHIBA", args = "/media/TOSHIBA EXT" },
 		},
 		timeout = 300
 	}

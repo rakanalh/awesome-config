@@ -179,16 +179,19 @@ function hotkeys:init(args)
 
 	-- volume functions
 	local volume_raise = function()
-		volume:change_volume({ show_notify = true, sink_update = pulse_sink_update })
-		pulse_sink_update = false
+		awful.spawn("/home/rakan/.nix-profile/bin/pamixer -i 5")
+		-- volume:change_volume({ show_notify = true, sink_update = pulse_sink_update })
+		-- pulse_sink_update = false
 	end
 	local volume_lower = function()
-		volume:change_volume({ show_notify = true, down = true, sink_update = pulse_sink_update })
-		pulse_sink_update = false
+		awful.spawn("/home/rakan/.nix-profile/bin/pamixer -d 5")
+		-- volume:change_volume({ show_notify = true, down = true, sink_update = pulse_sink_update })
+		-- pulse_sink_update = false
 	end
 	local volume_mute  = function()
-		volume:mute({ volume_update = volume_update })
-		pulse_sink_update = false
+		awful.spawn("/home/rakan/.nix-profile/bin/pamixer -t")
+		-- volume:mute({ volume_update = volume_update })
+		-- pulse_sink_update = false
 	end
 	-- local volume_raise = function()
 	-- 	awful.spawn("pulseaudio-ctl up")
@@ -920,6 +923,14 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Shift" }, "x", function() awful.spawn("i3lock-fancy") end,
 			{ description = "Lock screen", group = "Actions" }
+		},
+		{
+			{ env.mod, "Shift" }, "e", function() awful.spawn("rofi -show emoji") end,
+			{ description = "Show Emoji", group = "Actions" }
+		},
+		{
+			{ env.mod, "Shift" }, ";", function() awful.spawn("rofi-pulse-select sink") end,
+			{ description = "Select pulse sink", group = "Actions" }
 		}
 	}
 

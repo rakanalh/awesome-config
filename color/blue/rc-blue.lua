@@ -148,8 +148,8 @@ volume.widget = redflat.widget.pulse(nil, { widget = redflat.gauge.audio.blue.ne
 redflat.float.player:init({ name = env.player })
 
 volume.buttons = awful.util.table.join(
-	awful.button({}, 4, function() volume.widget:change_volume()                end),
-	awful.button({}, 5, function() volume.widget:change_volume({ down = true }) end),
+	awful.button({}, 4, function() awful.spawn("~/.nix-profile/bin/pamixer -i 5") end),
+	awful.button({}, 5, function() awful.spawn("~/.nix-profile/bin/pamixer -d 5") end),
 	awful.button({}, 2, function() volume.widget:mute()                         end),
 	awful.button({}, 3, function() redflat.float.player:show()                  end),
 	awful.button({}, 1, function() redflat.float.player:action("PlayPause")     end),
@@ -196,7 +196,7 @@ sysmon.widget.battery = redflat.widget.sysmon(
 -- network speed
 sysmon.widget.network = redflat.widget.net(
 	{
-		interface = "wlp82s0",
+		interface = "wlo1",
 		alert = { up = 5 * 1024^2, down = 5 * 1024^2 },
 		speed = { up = 6 * 1024^2, down = 6 * 1024^2 },
 		autoscale = false
