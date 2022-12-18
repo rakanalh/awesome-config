@@ -26,7 +26,7 @@ function autostart.run()
 
 	-- apps
 	awful.spawn.with_shell("firefox")
-	awful.spawn.with_shell("firefox -p Work")
+	awful.spawn.with_shell("firefox -p work")
 	awful.spawn.with_shell("emacs")
 	awful.spawn.with_shell("alacritty -e tmux new-session -A -s NixOS")
 	awful.spawn.with_shell("element-desktop")
