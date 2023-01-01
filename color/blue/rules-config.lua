@@ -132,6 +132,10 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[6] }
 		},
 		{
+			rule = { class = "obsidian" },
+			properties = { screen = screen_primary, tag = self.taglist[5] }
+		},
+		{
 			rule = { class = "Zeal" },
 			properties = { screen = screen_primary, tag = self.taglist[3] }
 		},
