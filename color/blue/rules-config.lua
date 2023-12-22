@@ -140,6 +140,10 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[3] }
 		},
 		{
+			rule = { class = "Ledger Live" },
+			properties = { screen = screen_primary, tag = self.taglist[8] }
+		},
+		{
 			rule = { class = "mpv" },
 			properties = { floating = true }
 		},

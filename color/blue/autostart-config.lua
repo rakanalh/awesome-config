@@ -33,6 +33,7 @@ function autostart.run()
 	awful.spawn.with_shell("telegram-desktop")
 	awful.spawn.with_shell("pcmanfm")
 	awful.spawn.with_shell("obsidian")
+	awful.spawn.with_shell("ledger-live-desktop")
 end
 
 -- Read and commads from file and spawn them
