@@ -136,12 +136,16 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[6] }
 		},
 		{
+			rule = { class = "Pcmanfm" },
+			properties = { screen = screen_primary, tag = self.taglist[7] }
+		},
+		{
 			rule = { class = "Zeal" },
 			properties = { screen = screen_primary, tag = self.taglist[3] }
 		},
 		{
 			rule = { class = "Ledger Live" },
-			properties = { screen = screen_primary, tag = self.taglist[8] }
+			properties = { screen = screen_secondary, tag = self.taglist[8] }
 		},
 		{
 			rule = { class = "mpv" },
@@ -158,10 +162,6 @@ function rules:init(args)
 		{
 			rule = { class = "dde-calendar" },
 			properties = { floating = true }
-		},
-		{
-			rule = { class = "Pcmanfm" },
-			properties = { screen = screen_primary, tag = self.taglist[6] }
 		},
 		-- Tags placement
 		{
