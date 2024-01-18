@@ -140,6 +140,10 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[7] }
 		},
 		{
+			rule = { class = "Thunar" },
+			properties = { screen = screen_primary, tag = self.taglist[7] }
+		},
+		{
 			rule = { class = "Zeal" },
 			properties = { screen = screen_primary, tag = self.taglist[3] }
 		},
