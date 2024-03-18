@@ -25,8 +25,9 @@ function autostart.run()
 	awful.spawn.with_shell("nm-applet")
 
 	-- apps
-	awful.spawn.with_shell("firefox")
-	awful.spawn.with_shell("firefox -p work")
+	-- awful.spawn.with_shell("firefox")
+	-- awful.spawn.with_shell("firefox -p work")
+	awful.spawn.with_shell("vivaldi")
 	awful.spawn.with_shell("emacs")
 	awful.spawn.with_shell("alacritty -e tmux new-session -A -s NixOS")
 	awful.spawn.with_shell("slack")
