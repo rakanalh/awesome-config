@@ -88,6 +88,10 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[1] }
 		},
 		{
+			rule = { class = "vivaldi-stable" },
+			properties = { screen = screen_primary, tag = self.taglist[1, 9] }
+		},
+		{
 			rule = { class = "Emacs" },
 			properties = { screen = screen_primary, tag = self.taglist[3] }
 		},
