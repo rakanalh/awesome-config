@@ -89,7 +89,7 @@ function rules:init(args)
 		},
 		{
 			rule = { class = "vivaldi-stable" },
-			properties = { screen = screen_primary, tag = self.taglist[1, 9] }
+			properties = { screen = screen_primary, tag = self.taglist[1] }
 		},
 		{
 			rule = { class = "Emacs" },
