@@ -88,6 +88,10 @@ function rules:init(args)
 			properties = { screen = screen_primary, tag = self.taglist[1] }
 		},
 		{
+			rule = { class = "vivaldi-stable" },
+			properties = { screen = screen_primary, tag = self.taglist[1] }
+		},
+		{
 			rule = { class = "Emacs" },
 			properties = { screen = screen_primary, tag = self.taglist[3] }
 		},
@@ -152,8 +156,16 @@ function rules:init(args)
 			properties = { floating = true }
 		},
 		{
-			rule = { class = "Pcmanfm" },
+			rule = { class = "obsidian" },
 			properties = { screen = screen_primary, tag = self.taglist[6] }
+		},
+		{
+			rule = { class = "Pcmanfm" },
+			properties = { screen = screen_primary, tag = self.taglist[7] }
+		},
+		{
+			rule = { class = "Ledger Live" },
+			properties = { screen = screen_secondary, tag = self.taglist[8] }
 		},
 		-- Tags placement
 		{

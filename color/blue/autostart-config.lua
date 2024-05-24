@@ -23,15 +23,17 @@ function autostart.run()
 	awful.spawn.with_shell("mpd")
 	awful.spawn.with_shell("mpDris2")
 	awful.spawn.with_shell("nm-applet")
+	awful.spawn.with_shell("flameshot")
 
 	-- apps
 	awful.spawn.with_shell("firefox")
 	awful.spawn.with_shell("emacs")
-	awful.spawn.with_shell("alacritty -e tmux")
-	awful.spawn.with_shell("element-desktop")
-	awful.spawn.with_shell("slack")
+	awful.spawn.with_shell("alacritty -e tmux new-session -A -s ArchLinux")
+	-- awful.spawn.with_shell("slack")
 	awful.spawn.with_shell("telegram-desktop")
 	awful.spawn.with_shell("pcmanfm")
+	awful.spawn.with_shell("obsidian")
+	awful.spawn.with_shell("ledger-live-desktop")
 end
 
 -- Read and commads from file and spawn them

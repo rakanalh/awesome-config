@@ -920,6 +920,14 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Shift" }, "x", function() awful.spawn("i3lock-fancy") end,
 			{ description = "Lock screen", group = "Actions" }
+		},
+		{
+			{ env.mod, "Shift" }, "e", function() awful.spawn("rofi -show emoji") end,
+			{ description = "Show Emoji", group = "Actions" }
+		},
+		{
+			{ env.mod, "Shift" }, ";", function() awful.spawn("rofi-pulse-select sink") end,
+			{ description = "Select pulse sink", group = "Actions" }
 		}
 	}
 
